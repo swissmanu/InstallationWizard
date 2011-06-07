@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Holds all information about a particular InstallationWizard step.
+ * Holds all information about a particular InstallationWizard step.<br/>
  *
  * @author Manuel Alabor
  * @see InstallationWizard

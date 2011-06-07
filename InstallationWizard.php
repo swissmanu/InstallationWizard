@@ -58,12 +58,12 @@ abstract class InstallationWizard {
 		if(isset($postData['step'])) {
 			$this->currentStepIndex = $postData['step'];
 			$currentStepIndex = $this->currentStepIndex;
-
+			
 			// Read the input-data into the step specifications
 			foreach($postData as $key => $value) {
 				if(strstr($key, 'input_') !== false) {
 					$key = substr($key, 6);
-					$this->wizardData[$key] = $value;
+					$this->setWizardDataForKey($key, $value);
 				}
 			}
 
@@ -80,10 +80,7 @@ abstract class InstallationWizard {
 			if($inputOk === true) {
 				$ok = true;
 				if($wizardDirection === 'next') {
-					if(isset($this->steps[$currentStepIndex]['callMethodAfter'])) {
-						$method = $this->steps[$this->currentStepIndex]['callMethodAfter'];
-						$ok = $this->$method($this->wizardData);
-					}
+					$ok = $this->steps[$currentStepIndex]->after();
 					if($ok === true) $this->currentStepIndex++;
 				} else if($wizardDirection === 'back') {
 					$this->currentStepIndex--;
@@ -94,10 +91,7 @@ abstract class InstallationWizard {
 		}
 
 		// Execute "before" method if present:
-		if(isset($this->steps[$this->currentStepIndex]['callMethodBefore'])) {
-			$method = $this->steps[$this->currentStepIndex]['callMethodBefore'];
-			$this->$method($this->wizardData);
-		}
+		$this->steps[$currentStepIndex]->before();
 		
 	}
 
@@ -278,6 +272,36 @@ abstract class InstallationWizard {
 	 */
 	public function getTotalSteps() {
 		return sizeof($this->steps);
+	}
+	
+	/**
+	 * Returns the complete data storage of this wizard.
+	 *
+	 * @return array
+	 */
+	public function getWizardData() {
+		return $this->wizardData;
+	}
+	
+	/**
+	 * Returns a specific value of the wizard data storage.<br/>
+	 * If the key was not found, <code>null</code> gets returned.
+	 *
+	 * @param $key
+	 * @return value or null
+	 */
+	public function getWizardDataForKey($key) {
+		return $this->getValue($this->wizardData, $key, null);
+	}
+	
+	/**
+	 * Sets the value $value for the key $key in the wizard data storage.
+	 *
+	 * @param $key
+	 * @param $value
+	 */
+	public function setWizardDataForKey($key, $value) {
+		$this->wizardData[$key] = $value;
 	}
 	
 	/**

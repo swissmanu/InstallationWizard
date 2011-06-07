@@ -1,15 +1,18 @@
 <?php
 /**
  * The abstract InstallationWizard.<br/>
- * It encapsulates all basic processing logic for running a wizard.
+ * All basic logic to handle the flow between different wizard steps is ecapsulated
+ * into this class.<br/>
+ * To implement your own wizard, derive from InstallationWizard and pass the
+ * specifications for the steps inside of your constructor.
  *
  * @author Manuel Alabor
  */
 abstract class InstallationWizard {
 	
-	protected $steps = array();
-	protected $wizardData = array();
-	protected $currentStepIndex = 0;
+	private $steps = array();
+	private $wizardData = array();
+	private $currentStepIndex = 0;
 	private $messages = array();
 	
 	/**
@@ -17,7 +20,7 @@ abstract class InstallationWizard {
 	 * from $stepSpecifications.
 	 *
 	 * @param $stepSpecifications array
-	 * */
+	 */
 	public function __construct(array $stepSpecifications) {
 		$this->steps = $stepSpecifications;
 	}
@@ -25,38 +28,11 @@ abstract class InstallationWizard {
 	/**
 	 * Starts the installation wizard logic.
 	 * 
-	 * @param $postData simply a $_POST array
+	 * @param $postData array, usually something like <code>$_POST</code>
 	 */
 	public function run(array $postData) {
 		$this->deserializeWizardData($postData);
 		$this->processPostData($postData);
-	}
-
-	/**
-	 * Returns the current step index.
-	 *
-	 * @return Current steps index
-	 */		
-	public function getCurrentStepIndex() {
-		return $this->currentStepIndex;
-	}
-	
-	/**
-	 * Returns the current step.
-	 *
-	 * @return Current step specification
-	 */
-	public function getCurrentStep() {
-		return $this->steps[$this->getCurrentStepIndex()];
-	}
-	
-	/**
-	 * Returns the total count of steps.
-	 *
-	 * @return count of steps
-	 */
-	public function getTotalSteps() {
-		return sizeof($this->steps);
 	}
 	
 	
@@ -114,6 +90,39 @@ abstract class InstallationWizard {
 	}
 
 	/**
+	 * Serializes the data of each step in the steps-array into a hidden
+	 * input-element.
+	 *
+	 * @return input-elements with the serialized data
+	 * @see deserializeSWizardData
+	 */
+	public function serializeWizardData() {
+		$serialized = '';
+		
+		if(sizeof($this->wizardData) > 0) {
+			$serialized .= '<input type="hidden" '
+			            .  'name="wizardData" '
+						.  'value="'. urlencode(serialize($this->wizardData)). '" '
+						.  ' />'."\n";
+		}
+
+		return $serialized."\n";
+	}
+
+	/**
+	 * After a POST-Request, this method deserializes the steps-data back into
+	 * the wizardData-array
+	 *
+	 * @param $postSource simply the $_POST-variable
+	 * @see serializeWizardData
+	 */
+	private function deserializeWizardData(array $postSource) {
+		if(isset($postSource['wizardData'])) {
+			$this->wizardData = unserialize(urldecode($postSource['wizardData']));
+		}
+	}
+	
+	/**
 	 * This function checks if all mandatory inputs for the step $currentstep_index
 	 * are filled in.<br/>
 	 * If not, a message gets added with #addMessage and false is returned.
@@ -153,40 +162,6 @@ abstract class InstallationWizard {
 		}
 
 		return (sizeof($missingFields) === 0);
-	}
-
-
-	/**
-	 * Serializes the data of each step in the steps-array into a hidden
-	 * input-element.
-	 *
-	 * @return input-elements with the serialized data
-	 * @see deserializeSWizardData
-	 */
-	public function serializeWizardData() {
-		$serialized = '';
-		
-		if(sizeof($this->wizardData) > 0) {
-			$serialized .= '<input type="hidden" '
-			            .  'name="wizardData" '
-						.  'value="'. urlencode(serialize($this->wizardData)). '" '
-						.  ' />'."\n";
-		}
-
-		return $serialized."\n";
-	}
-
-	/**
-	 * After a POST-Request, this method deserializes the steps-data back into
-	 * the wizardData-array
-	 *
-	 * @param $postSource simply the $_POST-variable
-	 * @see serializeWizardData
-	 */
-	private function deserializeWizardData(array $postSource) {
-		if(isset($postSource['wizardData'])) {
-			$this->wizardData = unserialize(urldecode($postSource['wizardData']));
-		}
 	}
 
 	/**
@@ -265,6 +240,33 @@ abstract class InstallationWizard {
 			,'text' => $message
 		);
 	}
+		
+	/**
+	 * Returns the current step index.
+	 *
+	 * @return Current steps index
+	 */		
+	public function getCurrentStepIndex() {
+		return $this->currentStepIndex;
+	}
+	
+	/**
+	 * Returns the current step.
+	 *
+	 * @return Current step specification
+	 */
+	public function getCurrentStep() {
+		return $this->steps[$this->getCurrentStepIndex()];
+	}
+	
+	/**
+	 * Returns the total count of steps.
+	 *
+	 * @return count of steps
+	 */
+	public function getTotalSteps() {
+		return sizeof($this->steps);
+	}
 	
 	/**
 	 * Returns the available messages.
@@ -291,7 +293,7 @@ abstract class InstallationWizard {
 	}
 	
 	/**
-	 * If true, the next button is allowed to be displayed.
+	 * Returns if the <em>Next</em>-button should be displayed or not.
 	 *
 	 * @return true/false
 	 */
@@ -306,7 +308,9 @@ abstract class InstallationWizard {
 	}
 	
 	/**
-	 * If true, the back button is allowed to be displayed.
+	 * Returns if the <em>Back</em>-button should be displayed or not.<br/>
+	 * To recognize this, the current steps index has to be larger than 0 AND, if
+	 * available, the current steps property <code>allowBack</code> has to be true.
 	 *
 	 * @return true/false
 	 */

@@ -30,7 +30,9 @@ abstract class InstallationWizard {
 	}
 	
 	/**
-	 * Initializes the InstallationWizard with all necessary step information.
+	 * Creates instances for all necessary steps and returns an array containing
+	 * them.<br/>
+	 * Implement this method in your concrete InstallationWizard.
 	 *
 	 * @return array with step information
 	 * @see #__construct()

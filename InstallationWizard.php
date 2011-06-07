@@ -1,6 +1,7 @@
 <?php
 
 require_once('InstallationWizard_Step.php');
+require_once('InstallationWizard_Input.php');
 
 /**
  * The abstract InstallationWizard.<br/>

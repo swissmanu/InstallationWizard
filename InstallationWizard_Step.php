@@ -108,6 +108,15 @@ abstract class InstallationWizard_Step {
 	}
 	
 	/**
+	 * Sets the array with the InstallationWizard_Input instances.
+	 *
+	 * @param $inputs array wiht InstallationWizard_Inputs
+	 */
+	protected function setInputs(array $inputs) {
+		$this->inputs = $inputs;
+	}
+	
+	/**
 	 * Returns the caption for the wizards <em>next</em>-button.<br/>
 	 * If the step has no specific caption for the button, $default gets returned.
 	 *
@@ -118,6 +127,15 @@ abstract class InstallationWizard_Step {
 		$caption = $default;
 		if($this->nextButtonCaption !== null) $caption = $this->nextButtonCaption;
 		return $caption;
+	}
+	
+	/**
+	 * Sets the caption for the <em>next</em>-button.
+	 *
+	 * @param $caption
+	 */
+	protected function setNextButtonCaption($caption) {
+		$this->nextButtonCaption = $caption;
 	}
 	
 	/**
@@ -134,6 +152,15 @@ abstract class InstallationWizard_Step {
 	}
 	
 	/**
+	 * Sets the caption for the <em>back</em>-button.
+	 *
+	 * @param $caption
+	 */
+	protected function setBackButtonCaption($caption) {
+		$this->backButtonCaption = $caption;
+	}
+	
+	/**
 	 * Checks if the <em>next</em>-button is available in this step.<br/>
 	 * If the step does not specify this, $default gets returned.
 	 *
@@ -147,6 +174,15 @@ abstract class InstallationWizard_Step {
 	}
 	
 	/**
+	 * Enables or disabled the <em>next</em>-button.
+	 *
+	 * @param $allowed true/false
+	 */
+	protected function setNextAllowed($allowed) {
+		$this->nextAllowed = $allowed;
+	}
+	
+	/**
 	 * Checks if the <em>back</em>-button is available in this step.<br/>
 	 * If the step does not specify this, $default gets returned.
 	 *
@@ -157,6 +193,15 @@ abstract class InstallationWizard_Step {
 		$allowed = $default;
 		if($this->backAllowed !== null) $allowed = $this->backAllowed;
 		return $allowed;
+	}
+
+	/**
+	 * Enables or disabled the <em>back</em>-button.
+	 *
+	 * @param $allowed true/false
+	 */	
+	protected function setBackAllowed($allowed) {
+		$this->backAllowed = $allowed;
 	}
 	
 }

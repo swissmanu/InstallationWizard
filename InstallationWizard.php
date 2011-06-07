@@ -58,6 +58,8 @@ abstract class InstallationWizard {
 	 * @param $postData simply the $_POST array
 	 */
 	private function processPostData(array $postData) {
+		$action = 'next';
+		
 		if(isset($postData['step'])) {
 			$this->currentStepIndex = $postData['step'];
 			$currentStepIndex = $this->currentStepIndex;
@@ -69,23 +71,22 @@ abstract class InstallationWizard {
 					$this->setWizardDataForKey($key, $value);
 				}
 			}
-
+			
 			// Determine if the user clicked next or back:
-			$wizardDirection = 'next';
-			if(isset($postData['back'])) $wizardDirection = 'back';
+			if(isset($postData['back'])) $action = 'back';
 
 			// Check input only if next was clicked:
 			$inputOk = true;
-			if($wizardDirection === 'next') $inputOk = $this->isInputOk();
+			if($action === 'next') $inputOk = $this->isInputOk();
 
 			// Execute "after" method if needed and update the
 			// currentstep_index regarding the button which was clicked.
 			if($inputOk === true) {
 				$ok = true;
-				if($wizardDirection === 'next') {
-					$ok = $this->steps[$currentStepIndex]->after();
+				if($action === 'next') {
+					$ok = $this->steps[$currentStepIndex]->after($action);
 					if($ok === true) $this->currentStepIndex++;
-				} else if($wizardDirection === 'back') {
+				} else if($action === 'back') {
 					$this->currentStepIndex--;
 				}
 				
@@ -94,7 +95,7 @@ abstract class InstallationWizard {
 		}
 
 		// Execute "before" method if present:
-		$this->steps[$currentStepIndex]->before();
+		$this->getCurrentStep()->before($action);
 		
 	}
 
@@ -141,23 +142,21 @@ abstract class InstallationWizard {
 	 */
 	private function isInputOk() {
 		$missingFields = array();
-		$currentStep = $this->steps[$this->currentStepIndex];
+		$currentStep = $this->getCurrentStep();
 		
-		if(isset($currentStep['input'])) {
-			foreach($currentStep['input'] as $key => $input) {
-				if(isset($input['mandatory']) && $input['mandatory'] === true) {
-					$dataValid = true;
+		foreach($currentStep->getInputs() as $key => $input) {
+			if(isset($input['mandatory']) && $input['mandatory'] === true) {
+				$dataValid = true;
 
-					if(isset($this->wizardData[$key])) {
-						if(strlen($this->wizardData[$key]) === 0) {
-							$dataValid = false;
-						}
-					} else {
+				if(isset($this->wizardData[$key])) {
+					if(strlen($this->wizardData[$key]) === 0) {
 						$dataValid = false;
 					}
-
-					if($dataValid === false) $missingFields[] = $input['caption'];
+				} else {
+					$dataValid = false;
 				}
+
+				if($dataValid === false) $missingFields[] = $input['caption'];
 			}
 		}
 
@@ -357,9 +356,7 @@ abstract class InstallationWizard {
 		$currentStep = $this->getCurrentStep();
 		
 		if($this->getCurrentStepIndex() > 0) {
-			if(isset($currentStep['allowBack']) && $currentStep['allowBack'] === false) {
-				$allowed = false;
-			}
+			$allowed = $currentStep->isBackAllowed(true);
 		} else {
 			$allowed = false;
 		}

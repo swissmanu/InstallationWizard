@@ -3,8 +3,8 @@
  * The abstract InstallationWizard.<br/>
  * All basic logic to handle the flow between different wizard steps is ecapsulated
  * into this class.<br/>
- * To implement your own wizard, derive from InstallationWizard and pass the
- * specifications for the steps inside of your constructor.
+ * To implement your own wizard, derive from InstallationWizard and implement
+ * the #initSteps() method.
  *
  * @author Manuel Alabor
  */
@@ -16,14 +16,22 @@ abstract class InstallationWizard {
 	private $messages = array();
 	
 	/**
-	 * Creates a new InstallationWizard and initializes it with the steps
-	 * from $stepSpecifications.
+	 * Initializes the InstallationWizard and calls the #initSteps()-method which
+	 * will be implemented by a concrete class.
 	 *
-	 * @param $stepSpecifications array
+	 * @see #initSteps()
 	 */
-	public function __construct(array $stepSpecifications) {
-		$this->steps = $stepSpecifications;
+	public function __construct() {
+		$this->steps = $this->initSteps();
 	}
+	
+	/**
+	 * Initializes the InstallationWizard with all necessary step information.
+	 *
+	 * @return array with step information
+	 * @see #__construct()
+	 */
+	protected abstract initSteps();
 	
 	/**
 	 * Starts the installation wizard logic.

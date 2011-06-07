@@ -11,6 +11,7 @@ abstract class InstallationWizard_Step {
 	private $wizard = null;
 	private $title = '';
 	private $text = '';
+	private $inputs = array();
 	private $nextButtonCaption = null;
 	private $backButtonCaption = null;
 	private $nextAllowed = null;
@@ -93,6 +94,17 @@ abstract class InstallationWizard_Step {
 	 */
 	public function getText() {
 		return $this->text;
+	}
+	
+	/**
+	 * Returns an array with InstallationWizard_Input instances. Each describes
+	 * a field (or similar) which gets rendered by the Wizard and provides possibility
+	 * to input data.
+	 *
+	 * @return array with InstallationWizard_Inpu
+	 */
+	public function getInputs() {
+		return $this->inputs;
 	}
 	
 	/**

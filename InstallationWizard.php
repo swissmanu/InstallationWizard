@@ -176,14 +176,13 @@ abstract class InstallationWizard {
 	 * Takes the input-specifications of a step and renders the proper input-elements
 	 * for them.
 	 *
-	 * @param $step step-specifications
-	 * @return input-elements
+	 * @param InstallationWizard_Step $step
+	 * @return Rendered input elements
 	 */
-	public function renderInputs($step) {
+	public function renderInputs(InstallationWizard_Step $step) {
 		$rendered = '';
 
-		if(isset($step['input'])) {
-			$inputs = $step['input'];
+		if(sizeof($step->getInputs()) > 0) {
 			$tabindex = 0;
 			foreach($inputs as $key => $input) {
 				$tabindex++;
@@ -191,12 +190,12 @@ abstract class InstallationWizard {
 				$placeholder = '';
 				if(isset($this->wizardData[$key])) $value = $this->wizardData[$key];
 				if(isset($input['placeholder'])) $placeholder = $input['placeholder'];
-
+	
 				$rendered .= '<p>'
 						  .  '<label for="input_'. $key. '">'
 						  .  $input['caption']
 						  .  '</label>';
-
+	
 				switch($input['type']) {
 					case 'text' :
 						$rendered .= '<input type="text" '
@@ -225,11 +224,11 @@ abstract class InstallationWizard {
 							$tabindex++;
 						}
 				}
-
+	
 				$rendered .= '</p>'."\n";
 			}
 		}
-
+		
 		return $rendered;
 
 	}

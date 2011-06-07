@@ -1,4 +1,7 @@
 <?php
+
+require_once('InstallationWizard_Step.php');
+
 /**
  * The abstract InstallationWizard.<br/>
  * All basic logic to handle the flow between different wizard steps is ecapsulated
@@ -7,6 +10,7 @@
  * the #initSteps() method.
  *
  * @author Manuel Alabor
+ * @see InstallationWizard_Step
  */
 abstract class InstallationWizard {
 	
@@ -31,7 +35,7 @@ abstract class InstallationWizard {
 	 * @return array with step information
 	 * @see #__construct()
 	 */
-	protected abstract initSteps();
+	protected abstract function initSteps();
 	
 	/**
 	 * Starts the installation wizard logic.

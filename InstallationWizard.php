@@ -1,7 +1,8 @@
 <?php
+namespace InstallationWizard;
 
-require_once('InstallationWizard_Step.php');
-require_once('InstallationWizard_Input.php');
+require_once('Step.php');
+require_once('Input.php');
 
 /**
  * The abstract InstallationWizard.<br/>
@@ -179,7 +180,7 @@ abstract class InstallationWizard {
 	 * @param InstallationWizard_Step $step
 	 * @return Rendered input elements
 	 */
-	public function renderInputs(InstallationWizard_Step $step) {
+	public function renderInputs(Step $step) {
 		$rendered = '';
 
 		if(sizeof($step->getInputs()) > 0) {

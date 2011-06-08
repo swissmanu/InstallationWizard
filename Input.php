@@ -1,4 +1,5 @@
 <?php
+namespace InstallationWizard;
 
 /**
  * 
@@ -7,7 +8,7 @@
  * @see InstallationWizard
  * @see InstallationWizard_Step
  */
-class InstallationWizard_Input {
+class Input {
 	
 	private $caption = '';
 	private $type = '';

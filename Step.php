@@ -1,4 +1,5 @@
 <?php
+namespace InstallationWizard;
 
 /**
  * Holds all information about a particular InstallationWizard step.<br/>
@@ -6,7 +7,7 @@
  * @author Manuel Alabor
  * @see InstallationWizard
  */
-abstract class InstallationWizard_Step {
+abstract class Step {
 	
 	private $wizard = null;
 	private $title = '';

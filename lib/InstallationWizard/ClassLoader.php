@@ -13,14 +13,13 @@ namespace InstallationWizard;
  *     $classLoader = new ClassLoader('Doctrine\Common', '/path/to/doctrine');
  *     $classLoader->register();
  *
- * @package Twitter
- * @subpackage Api
+ * @package InstallationWizard
  * @author Jonathan H. Wage <jonwage@gmail.com>
  * @author Roman S. Borschel <roman@code-factory.org>
  * @author Matthew Weier O'Phinney <matthew@zend.com>
  * @author Kris Wallsmith <kris.wallsmith@gmail.com>
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
- 
+ * @author Manuel Alabor, customization for InstallationWizard
  */
 class ClassLoader
 {

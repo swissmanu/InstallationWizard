@@ -1,9 +1,6 @@
 <?php
 namespace InstallationWizard;
 
-require_once('Step.php');
-require_once('Input.php');
-
 /**
  * The abstract InstallationWizard.<br/>
  * All basic logic to handle the flow between different wizard steps is ecapsulated

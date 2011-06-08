@@ -1,10 +1,11 @@
 <?php
-require_once('../lib/InstallationWizard/InstallationWizard.php');
-use InstallationWizard\InstallationWizard;
-use InstallationWizard\Step;
+require_once('../lib/InstallationWizard/ClassLoader.php');
+$classLoader = new \InstallationWizard\ClassLoader('InstallationWizard');
+$classLoader->setIncludePath('../lib');
+$classLoader->register();
 
 
-class Demo_InstallationWizard extends InstallationWizard {
+class Demo_InstallationWizard extends InstallationWizard\InstallationWizard {
 
 	protected function initSteps() {
 		return array(
@@ -17,9 +18,9 @@ class Demo_InstallationWizard extends InstallationWizard {
 }
 
 
-class Demo_Step1 extends Step {
+class Demo_Step1 extends InstallationWizard\Step {
 	
-	public function __construct(InstallationWizard $wizard) {
+	public function __construct(InstallationWizard\InstallationWizard $wizard) {
 		parent::__construct(
 			$wizard
 			,'Welcome'
@@ -33,9 +34,9 @@ class Demo_Step1 extends Step {
 	
 }
 
-class Demo_Step2 extends Step {
+class Demo_Step2 extends InstallationWizard\Step {
 	
-	public function __construct(InstallationWizard $wizard) {
+	public function __construct(InstallationWizard\InstallationWizard $wizard) {
 		parent::__construct(
 			$wizard
 			,'Welcome'
@@ -49,9 +50,9 @@ class Demo_Step2 extends Step {
 	
 }
 
-class Demo_Step3 extends Step {
+class Demo_Step3 extends InstallationWizard\Step {
 	
-	public function __construct(InstallationWizard $wizard) {
+	public function __construct(InstallationWizard\InstallationWizard $wizard) {
 		parent::__construct(
 			$wizard
 			,'Welcome'

@@ -1,6 +1,8 @@
 <?php
 namespace InstallationWizard;
 
+require_once('InstallationWizard.php');
+
 /**
  * Holds all information about a particular InstallationWizard step.<br/>
  *

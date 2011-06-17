@@ -4,7 +4,6 @@ $classLoader = new \InstallationWizard\ClassLoader('InstallationWizard');
 $classLoader->setIncludePath('../lib');
 $classLoader->register();
 
-
 class Demo_InstallationWizard extends InstallationWizard\InstallationWizard {
 
 	protected function initSteps() {

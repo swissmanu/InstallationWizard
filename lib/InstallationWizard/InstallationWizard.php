@@ -9,7 +9,7 @@ namespace InstallationWizard;
  * the #initSteps() method.
  *
  * @author Manuel Alabor
- * @see InstallationWizard_Step
+ * @see InstallationWizard\Step
  */
 abstract class InstallationWizard {
 	

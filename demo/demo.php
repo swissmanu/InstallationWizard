@@ -44,12 +44,12 @@ class Demo_Step2 extends \InstallationWizard\Step {
 	
 	protected function initStep() {
 		$databasename = new \InstallationWizard\Input\Textfield('Database host');
-		$databasename->setMandatory(true);
+		$databasename->setMandatory(false);
+		$ok = new \InstallationWizard\Input\Checkbox('OK?');
+		$ok->setMandatory(true);
 		
-		$this->addInput(
-			'database_name'
-			,$databasename
-		);
+		$this->addInput('database_name', $databasename);
+		$this->addInput('ok', $ok);
 	}
 	
 }

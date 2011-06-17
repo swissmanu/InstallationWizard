@@ -17,9 +17,9 @@ class Demo_InstallationWizard extends InstallationWizard\InstallationWizard {
 }
 
 
-class Demo_Step1 extends InstallationWizard\Step {
+class Demo_Step1 extends \InstallationWizard\Step {
 	
-	public function __construct(InstallationWizard\InstallationWizard $wizard) {
+	public function __construct(\InstallationWizard\InstallationWizard $wizard) {
 		parent::__construct(
 			$wizard
 			,'Welcome'
@@ -28,14 +28,35 @@ class Demo_Step1 extends InstallationWizard\Step {
 	}
 	
 	protected function initStep() {
-		
 	}
 	
 }
 
-class Demo_Step2 extends InstallationWizard\Step {
+class Demo_Step2 extends \InstallationWizard\Step {
 	
-	public function __construct(InstallationWizard\InstallationWizard $wizard) {
+	public function __construct(\InstallationWizard\InstallationWizard $wizard) {
+		parent::__construct(
+			$wizard
+			,'Welcome'
+			,'Welcome to the Demo'
+		);
+	}
+	
+	protected function initStep() {
+		$databasename = new \InstallationWizard\Input\Textfield('Database host');
+		$databasename->setMandatory(true);
+		
+		$this->addInput(
+			'database_name'
+			,$databasename
+		);
+	}
+	
+}
+
+class Demo_Step3 extends InstallationWizard\Step {
+	
+	public function __construct(\InstallationWizard\InstallationWizard $wizard) {
 		parent::__construct(
 			$wizard
 			,'Welcome'
@@ -45,22 +66,6 @@ class Demo_Step2 extends InstallationWizard\Step {
 	
 	protected function initStep() {
 		$this->setBackAllowed(false);
-	}
-	
-}
-
-class Demo_Step3 extends InstallationWizard\Step {
-	
-	public function __construct(InstallationWizard\InstallationWizard $wizard) {
-		parent::__construct(
-			$wizard
-			,'Welcome'
-			,'Welcome to the Demo'
-		);
-	}
-	
-	protected function initStep() {
-		
 	}
 	
 }

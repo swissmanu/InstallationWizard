@@ -13,6 +13,7 @@ abstract class Input {
 	
 	private $caption = '';
 	private $mandatory = false;
+	private $showCaption = true;
 	
 	/**
 	 * Default constructior with caption.
@@ -76,8 +77,9 @@ abstract class Input {
 	 */
 	public function render($key, $value) {
 		$inputKey = 'input_'. $key;
+		$rendered = '';
 		
-		$rendered = $this->renderCaption($inputKey, $this->getCaption());
+		if($this->showCaption === true) $rendered .= $this->renderCaption($inputKey, $this->getCaption());
 		$rendered .= $this->renderInput($inputKey, $value);
 		
 		return $rendered;
@@ -95,6 +97,15 @@ abstract class Input {
 						  .  $caption
 						  .  '</label>';
 		return $rendered;
+	}
+	
+	/**
+	 * Should this Input render a caption for itself?
+	 *
+	 * @param $show true/false
+	 */
+	protected function setShowCaption($show) {
+		$this->showCaption = $show;
 	}
 	
 	/**

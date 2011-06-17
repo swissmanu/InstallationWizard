@@ -26,7 +26,7 @@ abstract class Step {
 	 * @param $title
 	 * @param $text
 	 */
-	public function __construct(InstallationWizard $wizard, $title, $text) {
+	public function __construct(\InstallationWizard\InstallationWizard $wizard, $title, $text) {
 		$this->wizard = $wizard;
 		$this->title = $title;
 		$this->text = $text;
@@ -111,10 +111,11 @@ abstract class Step {
 	/**
 	 * Sets the array with the InstallationWizard_Input instances.
 	 *
-	 * @param $inputs array wiht InstallationWizard_Inputs
+	 * @param $key
+	 * @param $input
 	 */
-	protected function setInputs(array $inputs) {
-		$this->inputs = $inputs;
+	protected function addInput($key, \InstallationWizard\Input\Input $input) {
+		$this->inputs[$key] = $input;
 	}
 	
 	/**

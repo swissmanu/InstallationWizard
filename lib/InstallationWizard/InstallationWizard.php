@@ -143,18 +143,16 @@ abstract class InstallationWizard {
 		$currentStep = $this->getCurrentStep();
 		
 		foreach($currentStep->getInputs() as $key => $input) {
-			if(isset($input['mandatory']) && $input['mandatory'] === true) {
+			if($input->isMandatory() === true) {
 				$dataValid = true;
 
 				if(isset($this->wizardData[$key])) {
-					if(strlen($this->wizardData[$key]) === 0) {
-						$dataValid = false;
-					}
+					$dataValid = $input->isValueValid($this->wizardData[$key]);
 				} else {
 					$dataValid = false;
 				}
 
-				if($dataValid === false) $missingFields[] = $input['caption'];
+				if($dataValid === false) $missingFields[] = $input->getCaption();
 			}
 		}
 
@@ -182,12 +180,18 @@ abstract class InstallationWizard {
 
 		if(sizeof($step->getInputs()) > 0) {
 			$tabindex = 0;
-			foreach($inputs as $key => $input) {
+			
+			foreach($step->getInputs() as $key => $input) {
 				$tabindex++;
 				$value = '';
 				$placeholder = '';
 				if(isset($this->wizardData[$key])) $value = $this->wizardData[$key];
-				if(isset($input['placeholder'])) $placeholder = $input['placeholder'];
+				
+				$rendered .= '<p>'
+									.  $input->render($key, $value)
+									.  '</p>';
+				
+				/*if(isset($input['placeholder'])) $placeholder = $input['placeholder'];
 	
 				$rendered .= '<p>'
 						  .  '<label for="input_'. $key. '">'
@@ -224,6 +228,7 @@ abstract class InstallationWizard {
 				}
 	
 				$rendered .= '</p>'."\n";
+				*/
 			}
 		}
 		

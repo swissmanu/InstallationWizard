@@ -1,0 +1,3 @@
+InstallationWizard Framework for PHP
+====================================
+

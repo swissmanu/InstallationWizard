@@ -25,7 +25,7 @@
 				<?php echo $currentStep->getText() ?>
 			</header>
 			
-			<form action="index.php" method="post">
+			<form action="demo.php" method="post">
 				<input type="hidden" name="step" value="<?php echo $currentStepIndex ?>" />
 				<?php echo $wizard->serializeWizardData(); ?>
 

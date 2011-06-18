@@ -188,26 +188,10 @@ abstract class InstallationWizard {
 				if(isset($this->wizardData[$key])) $value = $this->wizardData[$key];
 				
 				$rendered .= '<p>'
-									.  $input->render($key, $value)
-									.  '</p>';
+						  .  $input->render($key, $value)
+						  .  '</p>'."\n";
 				
-				/*if(isset($input['placeholder'])) $placeholder = $input['placeholder'];
-	
-				$rendered .= '<p>'
-						  .  '<label for="input_'. $key. '">'
-						  .  $input['caption']
-						  .  '</label>';
-	
-				switch($input['type']) {
-					case 'text' :
-						$rendered .= '<input type="text" '
-								  .  'name="input_'. $key. '" '
-							  	  .  'id="input_'. $key. '" '
-								  .  'value="'. $value. '" '
-								  .  'placeholder="'. $placeholder. '" '
-								  .  'tabindex="'. $tabindex. '" '
-								  .  '/>';
-						break;
+				/*
 					case 'radio' :
 						$items = $input['items'];
 						foreach($items as $itemvalue => $item) {

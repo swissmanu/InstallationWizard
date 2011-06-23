@@ -16,15 +16,6 @@
 				background-color: #DDD;
 			}
 			
-			.wizard {
-				background-color: white;
-				margin-top: 20px;
-				padding: 10px 20px;
-				background-color: #EEE;
-				border-radius: 10px;
-				border: 1px solid #CCC;
-			}
-			
 			h1, h2, h3, h4, h5, h6 {
 				font-size: 100%;
 				font-family: "Yanone Kaffeesatz", "Lucida Sans", "Lucida Grande", Lucida, sans-serif;
@@ -36,6 +27,25 @@
 			}
 			h2 {
 				font-size: 200%;
+			}
+			
+			.wizard {
+				background-color: white;
+				margin-top: 20px;
+				padding: 10px 20px;
+				background-color: #EEE;
+				border-radius: 10px;
+				border: 1px solid #CCC;
+			}
+			
+			.step-text {
+				background-color: #E1E1E1;
+				padding: 5px;
+				font-size: 90%;
+			}
+			
+			.buttons {
+				margin-top: 10px;
 			}
 		
 		
@@ -55,7 +65,9 @@
 				<?php endforeach; ?>
 				<?php endif; ?>
 			
+				<div class="step-text">
 				<?php echo $currentStep->getText() ?>
+				</div>
 			</header>
 		
 			<form action="demo.php" method="post">
@@ -64,7 +76,7 @@
 
 				<?php echo $wizard->renderInputs($currentStep); ?>
 			
-				<footer class="bottom-button-bar">
+				<footer class="buttons">
 					<?php if($wizard->isNextAllowed()) : ?>
 					<input type="submit" name="next" value="Next >" />
 					<?php endif; ?>

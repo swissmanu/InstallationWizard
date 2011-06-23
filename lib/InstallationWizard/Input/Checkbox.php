@@ -9,6 +9,7 @@ namespace InstallationWizard\Input;
 class Checkbox extends \InstallationWizard\Input\Input {
 	
 	private $trueIsValid = true;
+	private $checkboxText = '';
 	
 	/**
 	 * Default constructior with caption.
@@ -17,7 +18,6 @@ class Checkbox extends \InstallationWizard\Input\Input {
 	 */
 	public function __construct($caption) {
 		parent::__construct($caption);
-		$this->setShowCaption(false);
 	}
 	
 	/**
@@ -38,7 +38,7 @@ class Checkbox extends \InstallationWizard\Input\Input {
 				  		.  'value="1" '
 				  		.  $checked
 				  		.  '/> '
-				  		.  $this->getCaption()
+				  		.  $this->checkboxText
 				  		.  '</span>';
 							
 		return $rendered;
@@ -81,6 +81,15 @@ class Checkbox extends \InstallationWizard\Input\Input {
 	 **/
 	public function setTrueIsValid($trueIsValid) {
 		$this->trueIsValid = $trueIsValid;
+	}
+	
+	/**
+	 * Sets the text, which will be displayed to the right of the checkbox.
+	 *
+	 * @param $text
+	 */
+	public function setCheckboxText($text) {
+		$this->checkboxText = $text;
 	}
 	
 }

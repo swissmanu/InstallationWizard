@@ -47,9 +47,12 @@ class Demo_Step2 extends \InstallationWizard\Step {
 		$databasename->setMandatory(false);
 		$ok = new \InstallationWizard\Input\Checkbox('OK?');
 		$ok->setMandatory(true);
+		$dropdown = new \InstallationWizard\Input\Dropdown('Gender',array('f'=>'Female','m'=>'Male'));
+		
 		
 		$this->addInput('database_name', $databasename);
 		$this->addInput('ok', $ok);
+		$this->addInput('gender', $dropdown);
 	}
 	
 }

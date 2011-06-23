@@ -43,16 +43,20 @@ class Demo_Step2 extends \InstallationWizard\Step {
 	}
 	
 	protected function initStep() {
-		$databasename = new \InstallationWizard\Input\Textfield('Database host');
-		$databasename->setMandatory(false);
-		$ok = new \InstallationWizard\Input\Checkbox('OK?');
-		$ok->setMandatory(true);
+		$textfield = new \InstallationWizard\Input\Textfield('Database host');
+		$textfield->setMandatory(true);
+		
+		$checkbox = new \InstallationWizard\Input\Checkbox('Everythings fine?');
+		$checkbox->setCheckboxText('Yes, everythings fine');
+		$checkbox->setMandatory(true);
+		
 		$dropdown = new \InstallationWizard\Input\Dropdown('Gender',array('f'=>'Female','m'=>'Male'));
+		
 		$age = new \InstallationWizard\Input\RadiobuttonGroup('Age',array('old'=>'>= 25','young'=>'< 25'));
 		
 		
-		$this->addInput('database_name', $databasename);
-		$this->addInput('ok', $ok);
+		$this->addInput('database_name', $textfield);
+		$this->addInput('ok', $checkbox);
 		$this->addInput('gender', $dropdown);
 		$this->addInput('age', $age);
 	}

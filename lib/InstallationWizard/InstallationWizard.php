@@ -190,29 +190,6 @@ abstract class InstallationWizard {
 				$rendered .= '<p>'
 						  .  $input->render($key, $value)
 						  .  '</p>'."\n";
-				
-				/*
-					case 'radio' :
-						$items = $input['items'];
-						foreach($items as $itemvalue => $item) {
-							if($itemvalue === $value) $selected = ' checked="checked"';
-							else $selected = '';
-							$rendered .= '<span class="radiocontainer">'
-							          .  '<input type="radio" '
-									  .  'name="input_'. $key. '" '
-							  	  	  .  'id="input_'. $key. '" '
-									  .  'value="'. $itemvalue. '" '
-									  .  'tabindex="'. $tabindex. '" '
-									  .  $selected
-									  .  '/> '
-									  .  $item
-									  .  '</span>';
-							$tabindex++;
-						}
-				}
-	
-				$rendered .= '</p>'."\n";
-				*/
 			}
 		}
 		

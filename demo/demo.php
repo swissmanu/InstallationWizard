@@ -48,11 +48,13 @@ class Demo_Step2 extends \InstallationWizard\Step {
 		$ok = new \InstallationWizard\Input\Checkbox('OK?');
 		$ok->setMandatory(true);
 		$dropdown = new \InstallationWizard\Input\Dropdown('Gender',array('f'=>'Female','m'=>'Male'));
+		$age = new \InstallationWizard\Input\RadiobuttonGroup('Age',array('old'=>'>= 25','young'=>'< 25'));
 		
 		
 		$this->addInput('database_name', $databasename);
 		$this->addInput('ok', $ok);
 		$this->addInput('gender', $dropdown);
+		$this->addInput('age', $age);
 	}
 	
 }

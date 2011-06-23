@@ -6,9 +6,7 @@ namespace InstallationWizard\Input;
  *
  * @author Manuel Alabor
  */
-class Dropdown extends \InstallationWizard\Input\Input {
-	
-	private $choices = array();
+class Dropdown extends \InstallationWizard\Input\Choosable {
 	
 	/**
 	 * Default constructior with caption and choices.<br/>
@@ -18,8 +16,7 @@ class Dropdown extends \InstallationWizard\Input\Input {
 	 * @param $choices
 	 */
 	public function __construct($caption, array $choices) {
-		parent::__construct($caption);
-		$this->choices = $choices;
+		parent::__construct($caption, $choices);
 	}
 	
 	/**
@@ -32,11 +29,11 @@ class Dropdown extends \InstallationWizard\Input\Input {
 	 */
 	protected function renderInput($key, $value) {
 		$rendered = '<select '
-							.  'name="'. $key. '" '
-							.  'id="'. $key. '" '
-							.  '>';
+				  .  'name="'. $key. '" '
+				  .  'id="'. $key. '" '
+				  .  '>';
 							
-		foreach($this->choices as $choiceKey => $choice) {
+		foreach($this->getChoices() as $choiceKey => $choice) {
 			$checked = '';
 			if($choiceKey === $value) $checked = ' selected="selected"';
 			$rendered .= '<option value="'. $choiceKey. '"'. $checked. '>'. $choice. '</option>';
@@ -45,16 +42,6 @@ class Dropdown extends \InstallationWizard\Input\Input {
 		$rendered .= '</select>';
 							
 		return $rendered;
-	}
-	
-	/**
-	 * Checks if a value is valid.
-	 *
-	 * @param $value
-	 * @return true if $value is present in $this->choices
-	 */
-	public function isValueValid($value) {
-		return in_array($value, $this->choices, true);
 	}
 	
 }

@@ -23,7 +23,7 @@ class Demo_Step1 extends \InstallationWizard\Step {
 		parent::__construct(
 			$wizard
 			,'Welcome'
-			,'Welcome to the Demo'
+			,'This is a demo for the InstallationWizard PHP framework. Click &quot;Next &gt;&quot; to continue.'
 		);
 	}
 	
@@ -37,8 +37,8 @@ class Demo_Step2 extends \InstallationWizard\Step {
 	public function __construct(\InstallationWizard\InstallationWizard $wizard) {
 		parent::__construct(
 			$wizard
-			,'Welcome'
-			,'Welcome to the Demo'
+			,'Different Inputs'
+			,'The framework provides different methods to gather information from your user.'
 		);
 	}
 	

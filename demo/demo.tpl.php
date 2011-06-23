@@ -44,6 +44,12 @@
 				font-size: 90%;
 			}
 			
+			label, input, select { font-size: 90%; }
+			label {
+				display: inline-block;
+				width: 150px;
+			}
+			
 			.buttons {
 				margin-top: 10px;
 			}
